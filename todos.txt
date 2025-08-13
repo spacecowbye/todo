@@ -1,5 +1,4 @@
-0 : {"id":0,"todoTask":"get vegetables again","isCompleted":false,"date":"2025-08-12T17:47:25.857Z"}
-1 : {"id":1,"todoTask":"get soap","isCompleted":false,"date":"2025-08-12T17:47:38.412Z"}
-0 : {"id":0,"todoTask":"get soap","isCompleted":false,"date":"2025-08-12T17:48:43.562Z"}
-1 : {"id":1,"todoTask":"get soap 1","isCompleted":false,"date":"2025-08-12T17:48:48.781Z"}
-2 : {"id":2,"todoTask":"get soap 2","isCompleted":false,"date":"2025-08-12T17:48:53.313Z"}
+0 : {"id":0,"todoTask":"Skip lunch today","isCompleted":false,"date":"2025-08-13T17:43:35.477Z"}
+1 : {"id":1,"todoTask":"have healthy breakfast","isCompleted":false,"date":"2025-08-13T17:44:08.538Z"}
+2 : {"id":2,"todoTask":"dont go to gym","isCompleted":false,"date":"2025-08-13T17:44:16.722Z"}
+{"id":2,"todoTask":"dont go to gym","isCompleted":false,"date":"2025-08-13T17:44:16.722Z"} : undefined

@@ -16,13 +16,46 @@ app.get('/',(req,res)=>{
         "hi" : "dude"
     });
 })
-app.get('/getTodo/:id',(req,res)=>{
+app.get('/getTodo/:num',(req,res)=>{
     console.log("[GET] req on path /getTodo for single todo");
+    let num = req.params.num;
+    let todo = todoManager.getTodo(num);
+    if(!todo){
+        console.log(`Todo with id ${num} is not created, invalid num`);
+        res.status(404).send(
+            { error: `Todo with id ${num} not found` }
+        )
+    }
+    res.send({
+        todo
+    });
     
 })
-app.get('/everyTodo',async(req,res) =>{
+app.patch('/updateStatus/:id',async(req,res) =>{
+    console.log("[PATCH] request on path /updateStatus");
+    const{ isCompleted, todoTask } = req.body;
+    const num = req.params.id;
+    let todo = todoManager.getTodo(num);
+    const obj = {
+       isCompleted,
+       todoTask
+    };
+    try {
+        todo = todo.updateTodo(obj);
+        await todoManager.updateTodo(todo);
+        res.send(todo);
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            error : "Error in updating todo"
+        })
+    }
+    
+    
+})
+app.get('/everyTodo',(req,res) =>{
     console.log("[GET] req on path /everyTodo");
-    let todos = await todoManager.getAllTodos();
+    let todos =  todoManager.getAllTodos();
     res.status(200).send(
         todos
     )
@@ -40,12 +73,23 @@ app.post('/createTodo', async(req,res) => {
     console.log(`[POST] req hit on path /createTodo`);
     console.log(`[INFO] todoTask :  ${todoTask}`)
     const newTodo = new Todo(id,todoTask);
-    await todoManager.addTodo(id++,newTodo);
-    console.log(newTodo);
-    res.status(201).send({
+    try {
+        await todoManager.addTodo(id,newTodo);
+        console.log(newTodo);
+        res.status(201).send({
         id,
         message : "ok"
     })
+    id+=1;
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            error : "Error in creating todo"
+        })
+    }
+    
+    
+    
     
 })
 
