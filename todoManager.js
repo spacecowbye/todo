@@ -1,3 +1,6 @@
+import readline from "readline/promises"
+import Todo from "./todo.js"
+
 class TodoManager {
     // id to todos mapping
     todos = undefined;
@@ -11,28 +14,28 @@ class TodoManager {
         this.fs = fs;
     }
     async addTodo(id, Todo) {
-        if(!id || !Todo){
-            throw new Error("Forgot to add id or Todo");
-        }
-        this.todos[id] = Todo;
-        const data = `${id} : ${Todo}\n`;
-        await this.fs.appendFile(this.file, data);
-        console.log(`[TodoManager] ${Todo} written to file with ${id}`);
+    if (id === undefined || id === null || !Todo) {
+        throw new Error("Forgot to add id or Todo");
     }
-    async updateTodo(Todo){
-        if(!Todo){
+    this.todos[id] = Todo;
+    const data = `${id} : ${Todo}\n`;
+    await this.fs.promises.appendFile(this.file, data);
+    console.log(`[TodoManager] ${Todo} written to file with ${id}`);
+}
+    async updateTodo(Todo) {
+        if (!Todo) {
             throw new Error("Forgot to add id or Todo");
         }
         const id = Todo.id;
-        if(!id){
+        if (!id) {
             console.log("Error in finding if of below todo");
             console.log(Todo);
-        }    
-        this.todos[id] = Todo;
-        this.addTodo(id,Todo);
-
         }
-    
+        this.todos[id] = Todo;
+        this.addTodo(id, Todo);
+
+    }
+
     getAllTodos() {
         let everyTodo = [Object.values(this.todos)];
         console.log("[TodoManager] returned everyTodo in memory");
@@ -44,10 +47,37 @@ class TodoManager {
         console.log([`[TodoManager] returned a single todo`]);
         return this.todos[id];
     }
-    // async readTodos() {
+    async readTodos() {
+        let cnt = 0;
+        const filestream = this.fs.createReadStream(`./${this.file}`)
+        const rl = readline.createInterface(
+            {
+                input: filestream,
+                crlfDelay: Infinity
+            }
+        )
 
+        for await (const line of rl) {
+            if (line.trim() !== "") {
+                cnt++;
+                const [idStr, jsonPart] = line.split(' : ');
+                if(idStr && jsonPart){
+                const id = Number(idStr);
+                const parsed = JSON.parse(jsonPart);
+                console.log(parsed);
+                // Create a real Todo instance and copy properties
+                const todo = new Todo(parsed.id, parsed.todoTask ,parsed.createdAt);
+                todo.isCompleted = parsed.isCompleted;
+                todo.createdAt = parsed.createdAt;
 
-    // }
+                this.todos[id] = todo;
+                }
+            }
+        }
+
+        console.log(this.todos);
+        return cnt;
+    }
 
 
 }

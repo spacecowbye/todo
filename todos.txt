@@ -1,4 +1,4 @@
-0 : {"id":0,"todoTask":"Skip lunch today","isCompleted":false,"date":"2025-08-13T17:43:35.477Z"}
-1 : {"id":1,"todoTask":"have healthy breakfast","isCompleted":false,"date":"2025-08-13T17:44:08.538Z"}
-2 : {"id":2,"todoTask":"dont go to gym","isCompleted":false,"date":"2025-08-13T17:44:16.722Z"}
-{"id":2,"todoTask":"dont go to gym","isCompleted":false,"date":"2025-08-13T17:44:16.722Z"} : undefined
+0 : {"id":0,"todoTask":"Breakfast","isCompleted":false,"createdAt":"2025-08-14T05:14:15.335Z"}
+1 : {"id":1,"todoTask":"Lunch","isCompleted":false,"createdAt":"2025-08-14T05:14:20.356Z"}
+2 : {"id":2,"todoTask":"Dinner","isCompleted":false,"createdAt":"2025-08-14T05:14:23.146Z"}
+2 : {"id":2,"todoTask":"Dinner","isCompleted":true,"createdAt":"2025-08-14T05:14:23.146Z"}

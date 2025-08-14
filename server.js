@@ -1,13 +1,13 @@
 import express from "express"
 import Todo from "./todo.js"
-import fs from "fs/promises"
+import fs from "fs"
 import TodoManager from "./todoManager.js";
 
 
 const PORT = 8080;
 const app = express();
-let id = 0;
 const todoManager = new TodoManager(fs);
+let id = await todoManager.readTodos();
 
 app.use(express.json());
 app.get('/',(req,res)=>{
@@ -87,10 +87,6 @@ app.post('/createTodo', async(req,res) => {
             error : "Error in creating todo"
         })
     }
-    
-    
-    
-    
 })
 
 

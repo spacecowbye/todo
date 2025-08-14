@@ -5,13 +5,12 @@ class Todo {
     createdAt = null;
     todoTask = null;
     isCompleted = false;
-    date = new Date();
-
-    constructor(id, todoTask) {
+    
+    constructor(id, todoTask,createdAt) {
         this.id = id;
         this.isCompleted = false;
         this.todoTask = todoTask;
-        this.createdAt = this.date.toISOString();
+        this.createdAt = createdAt || new Date().toISOString();
     }
     updateTodo(obj) {
         if (obj === null || obj === undefined) {
@@ -36,17 +35,12 @@ class Todo {
     }
 
     toString() {
-        const id = this.id;
-        const todoTask = this.todoTask;
-        const isCompleted = this.isCompleted;
-        const date = this.date;
-        const todo = {
-            id,
-            todoTask,
-            isCompleted,
-            date,
-        }
-        return JSON.stringify(todo);
+        return JSON.stringify({
+        id: this.id,
+        todoTask: this.todoTask,
+        isCompleted: this.isCompleted,
+        createdAt: this.createdAt
+    });
     }
 
 
